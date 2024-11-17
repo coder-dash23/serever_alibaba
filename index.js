@@ -5,16 +5,20 @@ import { config } from 'dotenv';
 
 config();
 
-const app = express();
 const port = 5000;
 
+const app = express();
 // Validate AgentQL API Key
 if (!process.env.AGENTQL_API_KEY) {
   console.error('Missing AgentQL API Key in environment variables.');
   process.exit(1);
 }
 
-// Middleware
+// app.use(cors({
+//   origin: ["https://alibaba-scraper.vercel.app"],
+//   methods: ["POST", "GET"],
+//   credentials: true
+// }));
 app.use(cors());
 app.use(json()); // Use express.json() to parse JSON request bodies
 
