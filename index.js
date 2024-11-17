@@ -5,8 +5,6 @@ import { config } from 'dotenv';
 
 config();
 
-const port = 5000;
-
 const app = express();
 // Validate AgentQL API Key
 if (!process.env.AGENTQL_API_KEY) {
@@ -14,12 +12,12 @@ if (!process.env.AGENTQL_API_KEY) {
   process.exit(1);
 }
 
-// app.use(cors({
-//   origin: ["https://alibaba-scraper.vercel.app"],
-//   methods: ["POST", "GET"],
-//   credentials: true
-// }));
-app.use(cors());
+app.use(cors({
+  origin: ["https://alibaba-scraper.vercel.app"],
+  methods: ["POST", "GET"],
+  credentials: true
+}));
+
 app.use(json()); // Use express.json() to parse JSON request bodies
 
 // Endpoint to scrape using AgentQL API
@@ -162,9 +160,3 @@ app.post('/scrape', async (req, res) => {
     res.status(500).json({ error: 'Internal server error during scraping.' });
   }
 });
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
-
